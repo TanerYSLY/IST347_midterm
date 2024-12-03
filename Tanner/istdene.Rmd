@@ -1,0 +1,53 @@
+---
+title: "Ist analiz odev"
+output: html_document
+date: "2024-12-03"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r veri yükleme}
+file_path <- "C:/Users/taner/OneDrive/Masa\u00fcst\u00fc/projeler/ist_analiz/arasinav.txt"
+
+veri_kitle <- read.table(file_path, header = TRUE, sep = " ")  
+veri_kitle[c("Occupation","City_Tier")] <- lapply(veri_kitle[c("Occupation","City_Tier")],as.factor)
+set.seed(123)  # Rastgelelik sabitlemek için
+
+satir_no <- sample(1:nrow(veri_kitle),size = 2000)
+#vektor,size(boyut)
+
+veri_orneklem <- veri_kitle[satir_no,]
+
+veri <- veri_orneklem
+
+head(veri)
+                                                                                   
+```
+
+```{r bölüm 9.1}
+
+summary(veri_orneklem)
+
+# Çıktı yorumu...
+
+# Medyan ve ortalama ile verimizin dağılımını yorumlayabiliriz.
+# Ortalama ve medyana sahip olmak çarpıklığı tespit etmek için yeterlidir.
+for(col in names(veri_orneklem)){
+  if(is.numeric(veri_orneklem[[col]])){ 
+    if(mean(veri_orneklem[[col]]) > median(veri_orneklem[[col]])){
+      print(paste(col,"sağa çarpık"))
+    }
+    if(mean(veri_orneklem[[col]]) < median(veri_orneklem[[col]])){
+      print(paste(col,"sola çarpık"))
+    }
+  }
+}
+
+```
+
+
+
+
+
